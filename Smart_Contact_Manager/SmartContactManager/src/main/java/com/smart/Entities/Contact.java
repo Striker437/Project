@@ -33,7 +33,7 @@ public class Contact {
 	private String email;
 	private String work;
     @NotNull
-    @NotBlank(message = "phone number cannot be empty")
+    @NotBlank(message = "phone number cannot be empty!!")
 	private String phone;
 	@Column(length =1000 )
 	private String description;

@@ -10,7 +10,7 @@
 <div class="card">
 
 <div class="card-body">
-<div th:if="${session.message}" th:classappend="${session.message.typestring}" class="alert">
+<div th:if="${session.message}" th:classappend="${'alert-'+session.message.typestring}" class="alert">
   <p class="text-center" th:text="${session.message.content}"></p>
   <th:block th:text="${#session.removeAttribute('message')}"></th:block> 
 </div>
