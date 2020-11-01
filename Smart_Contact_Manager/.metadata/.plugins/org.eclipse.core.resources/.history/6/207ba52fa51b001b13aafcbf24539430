@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home page</title>
+</head>
+<body>
+
+<section>
+<div class="card">
+
+<div class="card-body">
+<h1 class="text-center">Add Contact</h1>
+<div class="container-fluid mt-1">
+<div class="row">
+
+<div class="col-md-10 offset-md-1">
+<form action=""  th:object="${contact}"
+enctype="multipart/form-data"
+method="POST"
+th:action="@{user/process-contact}"
+class="mt-2"
+>
+
+<!-- first name -->
+ 
+     
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-plus"></i></div>
+        </div>
+        <input type="text"  name="name "class="form-control" id="inlineFormInputGroup" placeholder="Enter user name here">
+      </div>
+    
+    
+    <!-- Second name -->
+    
+   
+      
+      <div class="input-group mt-">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><i class="fa fa-plus"></i></div>
+        </div>
+        <input type="text"  name="secondName "class="form-control" id="inlineFormInputGroup" placeholder="Enter nick name here">
+      
+    </div>
+
+
+
+</form>
+
+</div>
+
+
+
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+</body>
+</html>

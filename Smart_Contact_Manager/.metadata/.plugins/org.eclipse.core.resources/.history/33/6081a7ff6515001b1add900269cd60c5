@@ -1,0 +1,74 @@
+package com.smart.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.smart.DAO.UserRepository;
+import com.smart.Entities.Contact;
+import com.smart.Entities.User;
+
+@Controller
+public class HomeController {
+	
+	@Autowired
+	private UserRepository  userRepository;
+	
+	//Home Page Handler
+	@GetMapping("/")
+	public String home(Model model)
+	{
+		model.addAttribute("title", "Home - Smart Contact Manager");
+		return "home";
+	}
+	
+	
+	
+	
+	@GetMapping("/about")
+	public String about(Model model)
+	{
+		model.addAttribute("title", "Home - Smart Contact Manager");
+		return "about";
+	}
+	
+	
+	//Signup Page
+	@GetMapping("/signup")
+	public String signup(Model model)
+	{
+		model.addAttribute("title", "Register - Smart Contact Manager");
+		model.addAttribute("user", new User());
+		return "signup";
+	}
+	
+	//Handler for Registering user
+		@PostMapping("/do_register")
+		public String registerUser(@ModelAttribute("user") User user,@RequestParam(value = "agreement", defaultValue = "false") boolean agreement , Model model)
+		{
+			if(!agreement)
+			{
+				System.out.println("you have not agreed to terms and conditions");
+			}
+			user.setRole("ROLE_USER");
+			user.setEnabled(true);
+			User result=userRepository.save(user);
+			
+			System.out.println("Agreement"+ agreement);
+			System.out.println("User"+user);
+			model.addAttribute("user", result);
+			
+			return "signup";
+		}
+	
+	
+	
+	
+
+}

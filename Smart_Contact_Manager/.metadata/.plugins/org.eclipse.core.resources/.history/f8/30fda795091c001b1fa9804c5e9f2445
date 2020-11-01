@@ -1,0 +1,11 @@
+package com.smart.DAO;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public class ContactRepository implements JpaRepository<T, ID> {
+
+	public ContactRepository() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
