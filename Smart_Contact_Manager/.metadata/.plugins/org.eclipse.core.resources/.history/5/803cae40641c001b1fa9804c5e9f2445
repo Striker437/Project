@@ -10,10 +10,6 @@
 <div class="card">
 
 <div class="card-body">
-<div th:if="${session.message}" th:classappend="${session.message.typestring}" class="alert">
-  <p class="text-center" th:text="${session.message.content}"></p>
-  <th:block th:text="${#session.removeAttribute('message')}"></th:block> 
-</div>
 <h1 class="text-center">Add Contact</h1>
 <div class="container-fluid mt-1">
 <div class="row">
@@ -84,10 +80,7 @@ class="mt-2"
         <div class="input-group-prepend">
           <div class="input-group-text"><i class="fas fa-envelope-square"></i></div>
         </div>
-        <input type="email"  name="email "class="form-control" id="email" placeholder="Enter email  here" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
-        <div th:each="e : ${#fields.errors('email')}"   th:text="${e}" id="validationServer03Feedback" class="invalid-feedback">
-        
-      </div>
+        <input type="email"  name="email "class="form-control" id="email" placeholder="Enter email  here">
       
     </div>
     

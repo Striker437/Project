@@ -2,13 +2,6 @@ package com.smart.Entities;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.springframework.format.annotation.NumberFormat;
 
 
 @Table(name="CONTACT")
@@ -18,8 +11,6 @@ public class Contact {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cId;
-	@NotBlank(message = "Name field is required !! ")
-	@Size(min = 2 , max = 20 ,message = "min 2 and max 20 characters are allowed")
 	private String name;
 	/*
 	 * @Override public String toString() { return "Contact [cId=" + cId + ", name="
@@ -28,12 +19,8 @@ public class Contact {
 	 * ", user=" + user + "]"; }
 	 */
 	private String secondName;
-	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$",
-			  message="Invalid Email!!")
 	private String email;
 	private String work;
-    @NotNull
-    @NotBlank(message = "phone number cannot be empty")
 	private String phone;
 	@Column(length =1000 )
 	private String description;

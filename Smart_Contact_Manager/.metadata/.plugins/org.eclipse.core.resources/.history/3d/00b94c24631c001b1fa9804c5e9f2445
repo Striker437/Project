@@ -34,6 +34,7 @@ public class Contact {
 	private String work;
     @NotNull
     @NotBlank(message = "phone number cannot be empty")
+    @Pattern(regexp = "\\d{10}|(?:\\d{3}-){2}\\d{4}|\\(\\d{3}\\)\\d{3}-?\\d{4}",message = "must contain valid number")
 	private String phone;
 	@Column(length =1000 )
 	private String description;
