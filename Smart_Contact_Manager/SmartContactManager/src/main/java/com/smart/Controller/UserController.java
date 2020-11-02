@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -154,6 +156,32 @@ public class UserController {
 		
 		
 		
+	}
+	
+	//handler for show contacts
+	
+	@GetMapping("/view-contact")
+	public String ViewContact(Model model,Principal principal)
+	{
+		String name=principal.getName();
+		User user=userRepository.getUserByUserName(name);
+		List<Contact> contactList=contactRepository.findContactById(user.getId());  //get the list of contacts from database
+		System.out.println("Contact details are as follows");
+		for(Contact temp:contactList)
+		{
+			System.out.println(temp.getName()+" "+temp.getEmail()+" "+temp.getPhone()+" "+temp.getSecondName());
+			
+		}
+		
+		model.addAttribute("contact", contactList);  //contact ki list ko bhejni hai
+		
+		
+		
+		
+		
+		
+		
+		return "normal/show_contacts";
 	}
 
 }
