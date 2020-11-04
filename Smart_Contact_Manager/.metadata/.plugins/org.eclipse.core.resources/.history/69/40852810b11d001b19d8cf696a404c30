@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home page</title>
+</head>
+<body>
+
+<section>
+<h1 class="text-center">Show Contacts</h1>
+
+<table class="table mt-6">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">First</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="c : ${contact}">
+      <th scope="row" th:text="${'SCMUSER'+c.cId}"></th>
+      <td th:text="${c.name}"></td>
+      <td th:text="${c.phone}"></td>
+      <td th:text="${c.email}"></td>
+      <td><button type="button" class="btn btn-primary btn-sm">Update</button>
+<button type="button" class="btn btn-danger btn-sm">Delete</button>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+<!-- Pagination per page -->
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    
+    <li  th:classappend="${currentPage==i-1 ? 'active': ''}" th:each="i : ${#numbers.sequence(1,totalPages)}"   class="page-item"  th:href="@{'user/show-contacts/'+${i-1}}"><a class="page-link" href="#"><span th:text="${i}"></span></a></li>
+    
+    
+    
+   <!--  <li class="page-item"><a class="page-link" href="#">2</a></li>
+    
+    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+    
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
+
+
+
+
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home page</title>
+</head>
+<body>
+
+<section>
+
+<img  src=""  th:src="@{'/img/'+${contact.image}}" alt="" class="my_profile_photo"  />
+<table class="table mt-6 text-center">
+  
+  <tbody>
+    
+     <tr>
+       <th scope="col">ID</th>
+    <td>  <span th:text="${contact.cId}"></span></td>
+      </tr>
+      <tr>
+      
+       <th scope="col">Name</th>
+    <td>  <span th:text="${contact.name}"></span></td>
+      </tr>
+       <tr>
+      
+       <th scope="col">Phone</th>
+    <td>  <span th:text="${contact.phone}"></span></td>
+      </tr>
+      
+        <tr>
+      
+       <th scope="col">Email</th>
+    <td>  <span th:text="${contact.email}"></span></td>
+      </tr>
+       <tr>
+      
+       <th scope="col">Description</th>
+    <td>  <span th:text="${contact.description}"></span></td>
+      </tr>
+      
+       
+       </tbody>
+       </table>
+       
+      
+      
+      
+       
+      <button type="button" class="btn btn-primary btn-sm">Update</button>
+<button type="button" class="btn btn-danger btn-sm">Delete</button>
+   
+    
+ 
+
+
+
+
+
+</section>
+
+</body>
+</html>

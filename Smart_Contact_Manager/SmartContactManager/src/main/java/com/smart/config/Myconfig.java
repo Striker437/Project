@@ -16,37 +16,42 @@ public class Myconfig extends WebSecurityConfigurerAdapter {
 	
 
 	@Bean
-	public UserDetailsService getUserDetailService()
+	public UserDetailsService getUserDetailService()       
 	{
-		return new UserDetailsServiceImpl();
+		return new UserDetailsServiceImpl();       //get the user details
 		
 	}
 	
 	
-	  @Bean public BCryptPasswordEncoder getpasswordencoder() { return new
+	  @Bean
+	  public BCryptPasswordEncoder getpasswordencoder() {
+		  return new
 	  BCryptPasswordEncoder(); }
 	 
 	
 	
 	
-	  @Bean public DaoAuthenticationProvider authenticationProvider() {
+	  @Bean public DaoAuthenticationProvider authenticationProvider() {       //This is used to validate the username and password from database 
 	  DaoAuthenticationProvider daoAuthenticationProvider=new
 	  DaoAuthenticationProvider();
 	  daoAuthenticationProvider.setUserDetailsService(getUserDetailService());
-	  daoAuthenticationProvider.setPasswordEncoder(getpasswordencoder()); return
-	  daoAuthenticationProvider; }
+	  daoAuthenticationProvider.setPasswordEncoder(getpasswordencoder());
+	  return daoAuthenticationProvider;
+	  }
 	 
 	 
 	
 	
 	
-	  @Override protected void configure(AuthenticationManagerBuilder auth) throws
-	  Exception { auth.authenticationProvider(authenticationProvider()); }
+	  @Override protected void configure(AuthenticationManagerBuilder auth) throws   //this method is used to tell whether this is in memory authentication(H2 Embedded) or defined database authentication(MySQL)(Authentication) 
+	  Exception {
+		  auth.authenticationProvider(authenticationProvider());
+	  }
 	 
 	 
 
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity http) throws Exception {                     //this method used to tell what URL are given to user and admin i,e it is (Authorisation)
 		http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
 		.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/**").permitAll().and().formLogin() .loginPage("/signin")

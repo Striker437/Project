@@ -14,11 +14,15 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,6 +111,7 @@ public class UserController {
 		{
 			
 			//if the file is empty then try this message
+			contact.setImage("default.png");
 			System.out.println("file is empty");
 		}
 		
@@ -116,11 +121,11 @@ public class UserController {
 			//copy  the file to folder and update the name to contact
 			contact.setImage(file.getOriginalFilename());
 			
-			File saveFile=new ClassPathResource("static/img").getFile();
+			File saveFile=new ClassPathResource("static/img").getFile();  //path to img folder in target file
 			
 			System.out.println("file path"+saveFile);
 			
-			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());
+			Path path=Paths.get(saveFile.getAbsolutePath()+File.separator+file.getOriginalFilename());  //path to main image name in target file
 			
 			System.out.println("path aise hi"+path);
 			
@@ -158,22 +163,33 @@ public class UserController {
 		
 	}
 	
-	//handler for show contacts
-	
-	@GetMapping("/view-contact")
-	public String ViewContact(Model model,Principal principal)
+	//handler for show contacts and pagination
+	//per page=5 contacts
+	//current page=0(page)
+	@GetMapping("/view-contact/{page}")
+	public String ViewContact(@PathVariable("page") Integer page,Model model,Principal principal)
 	{
 		String name=principal.getName();
 		User user=userRepository.getUserByUserName(name);
+		
+		//current page
+		//contact per page-5
+		Pageable pageable=PageRequest.of(page, 3);
 		List<Contact> contactList=contactRepository.findContactById(user.getId());  //get the list of contacts from database
+		
+		//page  list of contacts
+		Page<Contact> contacts=contactRepository.findPageContactById(user.getId(),pageable);
 		System.out.println("Contact details are as follows");
 		for(Contact temp:contactList)
 		{
 			System.out.println(temp.getName()+" "+temp.getEmail()+" "+temp.getPhone()+" "+temp.getSecondName());
 			
 		}
+		System.out.println("page contact list"+contacts.toString());
 		
-		model.addAttribute("contact", contactList);  //contact ki list ko bhejni hai
+		model.addAttribute("contact", contacts);  //contact ki list ko bhejni hai
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages",contacts.getTotalPages());
 		
 		
 		
@@ -182,6 +198,21 @@ public class UserController {
 		
 		
 		return "normal/show_contacts";
+	}
+	@GetMapping("/contact-detail/{cId}")
+	public String showContactDetail(@PathVariable("cId") int cId,Model model,Principal principle)
+	{
+		String Username=principle.getName();
+		User user=userRepository.getUserByUserName(Username);
+		Optional<Contact>Iterable=contactRepository.findById(cId);
+		Contact contact=Iterable.get();
+		if(user.getId()==contact.getUser().getId())
+		model.addAttribute("contact", contact);
+		
+		
+		
+		
+		return "/normal/contact_detail";
 	}
 
 }

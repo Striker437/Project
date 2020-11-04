@@ -109,3 +109,12 @@ body {
 	cursor:pointer;
 	font-size: 150%;
 }
+
+
+.my_profile_photo
+{
+	height: 35px;
+	width: 35px;
+	object-fit:cover;
+	border:radius;
+}

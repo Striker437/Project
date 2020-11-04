@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>This is home page</title>
+</head>
+<body>
+
+<section>
+<h1>This is about contact detail Page</h1>
+<h2>Here we are going to write about Contact Detail</h2>
+
+<table class="table mt-6">
+  <thead>
+    <tr>
+      <th scope="col">#ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col">Work</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row" th:text="${'SCMUSER'+ contact.cId}}"></th>
+      <td>
+      
+      
+      <span th:text="${contact.name}"></span></td>
+      <td th:text="${contact.phone}"></td>
+     
+      <td>
+      
+       <span th:text="${contact.email}">  </span>
+      
+      
+      
+       </td>
+       <td>
+      
+       <span th:text="${contact.description}">  </span>
+      
+      
+      
+       </td>
+      <td><button type="button" class="btn btn-primary btn-sm">Update</button>
+<button type="button" class="btn btn-danger btn-sm">Delete</button>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+
+</section>
+
+</body>
+</html>
